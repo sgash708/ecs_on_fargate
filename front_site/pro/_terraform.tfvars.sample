@@ -1,0 +1,28 @@
+env          = "www"
+vpc_cidr     = "10.1.0.0/16"
+service_name = "niceservicename"
+domain_name  = "niceservicename.jp"
+db_info = {
+  DB_NAME       = "niceservicenameDB"
+  DB_ROOT       = "RootUserName"
+  DB_PASSWORD   = "@should_create_your_nice_password!"
+  DB_PORT       = 3306
+  INSTANCE_SIZE = "db.t3.small"
+}
+account_info = {
+  id            = 1234567890
+  region        = "ap-northeast-1"
+  global_region = "us-east-1"
+  gh_org_url    = "https://github.com/orgnization_name"
+  acm_name      = "niceservicenameACM"
+}
+s3_info = {
+  image_bucket_name        = "niceservicename-stg-image"
+  image_bucket_domain_name = "image.niceservicename.jp"
+  log_bucket_name          = "niceservicename-logs"
+  log_bucket_url           = "niceservicename-logs.s3.amazonaws.com"
+}
+ecs_info = {
+  env     = "Production"
+  command = "composer install --optimize-autoloader --no-dev && /usr/sbin/apache2ctl -D FOREGROUND"
+}
