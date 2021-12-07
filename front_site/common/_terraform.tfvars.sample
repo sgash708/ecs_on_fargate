@@ -1,0 +1,22 @@
+env            = "ww9"
+service_name   = "niceservicename"
+domain_name    = "niceservicename.jp"
+subdomain_name = "admin9"
+account_info = {
+  id            = 1234567890
+  region        = "ap-northeast-1"
+  global_region = "us-east-1"
+  gh_org_url    = "https://github.com/repository_name"
+  acm_name      = "niceservicenameACM"
+}
+s3_info = {
+  image_bucket_name        = "niceservicename-stg-image"
+  image_bucket_domain_name = "image.niceservicename.jp"
+  log_bucket_name          = "niceservicename-logs"
+  log_bucket_url           = "niceservicename-logs.s3.amazonaws.com"
+  cp_bucket_name           = "niceservicename"
+}
+cd_info = {
+  deploy_application_name = "ww9-niceservicename-web_ecs"
+  deploy_group_name       = "ww9-niceservicename-web"
+}
