@@ -6,7 +6,7 @@ account_info = {
   id            = 1234567890
   region        = "ap-northeast-1"
   global_region = "us-east-1"
-  gh_org_url    = "https://github.com/repository_name"
+  gh_org_url    = "https://github.com/orgnization_name"
   acm_name      = "niceservicenameACM"
 }
 s3_info = {
