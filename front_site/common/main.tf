@@ -1,4 +1,3 @@
-# ネットワーク
 module "dns" {
   source = "../modules/network/dns"
 
@@ -10,13 +9,11 @@ module "dns" {
   domain_name  = var.domain_name
   service_name = var.service_name
 }
-# コンテナ
 module "ecr" {
   source = "../modules/container/ecr"
 
   service_name = var.service_name
 }
-# CI/CD
 module "codebuild" {
   source = "../modules/cicd/codebuild"
 
