@@ -14,7 +14,6 @@ s3_info = {
   image_bucket_domain_name = "image.niceservicename.jp"
   log_bucket_name          = "niceservicename-logs"
   log_bucket_url           = "niceservicename-logs.s3.amazonaws.com"
-  cp_bucket_name           = "niceservicename"
 }
 cd_info = {
   deploy_application_name = "ww9-niceservicename-web_ecs"
