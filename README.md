@@ -16,5 +16,6 @@
   * VPC
   * VPC-EP
   * WAF
+* aws-cli
 * terraform
 * terraformer
