@@ -9,8 +9,9 @@ module "cloudfront" {
 module "vpc" {
   source = "../modules/network/vpc"
 
-  env  = var.env
-  cidr = var.vpc_cidr
+  env          = var.env
+  service_name = var.service_name
+  cidr         = var.vpc_cidr
 }
 module "alb" {
   source = "../modules/network/alb"
