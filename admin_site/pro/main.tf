@@ -23,6 +23,8 @@ module "ecs" {
   ecs_info          = var.ecs_info
   vpc_id            = lookup(var.network_info, "vpc_id")
   pri_ids           = lookup(var.network_info, "pri_ids")
+
+  depends_on = [ module.alb ]
 }
 # CI/CD
 module "codedeploy" {
@@ -36,6 +38,8 @@ module "codedeploy" {
   env                          = var.env
   service_name                 = var.service_name
   waiting_minutes_after_deploy = 5
+
+  depends_on = [ module.alb, module.ecs ]
 }
 # Other
 module "cognito" {
@@ -45,4 +49,6 @@ module "cognito" {
   service_name   = var.service_name
   domain_name    = var.domain_name
   subdomain_name = var.subdomain_name
+
+  depends_on = [ module.alb ]
 }
