@@ -9,19 +9,22 @@ module "cloudfront" {
 module "vpc" {
   source = "../modules/network/vpc"
 
-  env  = var.env
-  cidr = var.vpc_cidr
+  env          = var.env
+  service_name = var.service_name
+  cidr         = var.vpc_cidr
 }
 module "alb" {
   source = "../modules/network/alb"
 
   vpc_id       = module.vpc.default.id
   pub_ids      = module.vpc.pub_ids
-  route53_zone = data.aws_route53_zone.default
   acm_arn      = data.aws_acm_certificate.default.arn
+  route53_zone = data.aws_route53_zone.default
   env          = var.env
   service_name = var.service_name
   domain_name  = var.domain_name
+
+  depends_on = [ module.vpc ]
 }
 # DataBase
 module "rds" {
@@ -33,20 +36,24 @@ module "rds" {
   service_name = var.service_name
   db_info      = var.db_info
   snapshot_flg = true
+
+  depends_on = [ module.vpc, module.alb ]
 }
 # Container
 module "ecs" {
   source = "../modules/container/ecs"
 
   vpc               = module.vpc.default
-  pri_ids           = module.vpc.pri_ids
   lb_tg_blue        = module.alb.tg_blue
   lb_listener_https = module.alb.listener_https
+  pri_ids           = module.vpc.pri_ids
   ecr_app_url       = data.aws_ecr_repository.app.repository_url
   env               = var.env
   service_name      = var.service_name
   account_info      = var.account_info
   ecs_info          = var.ecs_info
+
+  depends_on = [ module.vpc, module.alb, module.rds ]
 }
 # CI/CD
 module "codedeploy" {
@@ -60,6 +67,8 @@ module "codedeploy" {
   env                          = var.env
   service_name                 = var.service_name
   waiting_minutes_after_deploy = 5
+
+  depends_on = [ module.vpc, module.alb, module.rds, module.ecs ]
 }
 # Other
 module "ssm" {
@@ -69,6 +78,8 @@ module "ssm" {
   rds_sg_id    = module.rds.sg_id
   env          = var.env
   service_name = var.service_name
+
+  depends_on = [ module.vpc, module.rds ]
 }
 module "waf" {
   source = "../modules/other/waf"
@@ -77,4 +88,6 @@ module "waf" {
   env          = var.env
   account_info = var.account_info
   s3_info      = var.s3_info
+
+  depends_on = [ module.vpc, module.alb ]
 }

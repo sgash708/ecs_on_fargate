@@ -23,6 +23,8 @@ module "alb" {
   env          = var.env
   service_name = var.service_name
   domain_name  = var.domain_name
+
+  depends_on = [ module.vpc ]
 }
 # DataBase
 module "rds" {
@@ -34,6 +36,8 @@ module "rds" {
   service_name = var.service_name
   db_info      = var.db_info
   snapshot_flg = true
+
+  depends_on = [ module.vpc, module.alb ]
 }
 # Container
 module "ecs" {
@@ -48,6 +52,8 @@ module "ecs" {
   service_name      = var.service_name
   account_info      = var.account_info
   ecs_info          = var.ecs_info
+
+  depends_on = [ module.vpc, module.alb, module.rds ]
 }
 # CI/CD
 module "codedeploy" {
@@ -61,6 +67,8 @@ module "codedeploy" {
   env                          = var.env
   service_name                 = var.service_name
   waiting_minutes_after_deploy = 5
+
+  depends_on = [ module.vpc, module.alb, module.rds, module.ecs ]
 }
 # Other
 module "ssm" {
@@ -70,6 +78,8 @@ module "ssm" {
   rds_sg_id    = module.rds.sg_id
   env          = var.env
   service_name = var.service_name
+
+  depends_on = [ module.vpc, module.rds ]
 }
 module "waf" {
   source = "../modules/other/waf"
@@ -78,4 +88,6 @@ module "waf" {
   env          = var.env
   account_info = var.account_info
   s3_info      = var.s3_info
+
+  depends_on = [ module.vpc, module.alb ]
 }

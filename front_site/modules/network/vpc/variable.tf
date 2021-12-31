@@ -1,6 +1,6 @@
-variable "cidr" {}
 variable "env" {}
 variable "service_name" {}
+variable "cidr" {}
 locals {
   availablity_zones   = ["ap-northeast-1a", "ap-northeast-1c", "ap-northeast-1d"]
   internet_cidr       = "0.0.0.0/0"
