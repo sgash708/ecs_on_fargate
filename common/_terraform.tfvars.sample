@@ -1,6 +1,4 @@
 account_info = {
   id            = 1234567890
   region        = "ap-northeast-1"
-  gh_org_url    = "https://github.com/orgnization_name"
-  acm_name      = "niceservicenameACM"
 }
