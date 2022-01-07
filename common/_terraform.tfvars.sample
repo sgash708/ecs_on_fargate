@@ -1,4 +1,0 @@
-account_info = {
-  id            = 1234567890
-  region        = "ap-northeast-1"
-}
