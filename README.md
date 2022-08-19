@@ -21,5 +21,8 @@
 * terraformer
 
 ## 構成
-![構成図](img/application-AWS-Arch.pdf
+![構成図](img/application-AWS-Arch.png)
+
+### pdf
+[構成図のPDF](img/application-AWS-Arch.pdf
 )
